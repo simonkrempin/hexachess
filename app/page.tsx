@@ -1,8 +1,10 @@
-export default function Play() {
+'use client';
+
+import React from 'react';
+import { GameEngine } from '../core/gameengine';
+
+export default function HomePage() {
     return (
-        <div>
-        <h1>Play</h1>
-        <p>Play the game!</p>
-        </div>
+        <GameEngine/>
     );
 }

@@ -3,10 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev && .\\pocketbase.exe serve",
-    "devs": "next dev",
+    "dev": "next dev",
     "database": ".\\pocketbase.exe serve",
-    "devt": "next dev --turbo && .\\pocketbase.exe serve",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -22,6 +20,8 @@
     "pocketbase": "^0.8.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hexgrid": "^2.0.1",
+    "react-svg": "^15.1.14",
     "typescript": "4.9.3"
   }
 }
