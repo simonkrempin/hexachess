@@ -4,10 +4,7 @@ import React, { ReactElement } from "react";
 import { HexGrid, Layout, Hexagon, Pattern } from "react-hexgrid";
 import "../styles/board.css";
 import { IBoardProps, PieceBoardProps, HexPosition, HexTile, TileType } from "../interfaces/hexachess";
-import { highlightTilesContains } from "../utils/hexachess";
 import { Piece } from "./pieces/piece";
-
-export const testId = "board";
 
 export const CreateHexagons = (props: {
     boardSize: number;
@@ -24,7 +21,7 @@ export const CreateHexagons = (props: {
             for (let r = -props.boardSize; r <= props.boardSize; r++) {
                 if (q + r + s !== 0) continue;
 
-                const tileMark = highlightTilesContains({ q, r, s }, props.highlightTiles);
+                const tileMark = getMarkTypeOfTile({ q, r, s }, props.highlightTiles);
                 res.push(
                     <Hexagon
                         q={q}
@@ -42,10 +39,16 @@ export const CreateHexagons = (props: {
     return res;
 };
 
+const getMarkTypeOfTile = (position: HexPosition, tiles: HexTile[]): TileType | undefined => {
+    return (
+        tiles.find((tile) => tile.position.q === position.q && tile.position.r === position.r && tile.position.s === position.s)
+            ?.type ?? "none"
+    );
+};
+
 export function Board(props: IBoardProps) {
     return (
         <div
-            data-testid="board"
             style={{
                 width: "100%",
                 height: "100%",
@@ -77,28 +80,32 @@ export function Board(props: IBoardProps) {
     );
 }
 
-export function Pieces(props: PieceBoardProps) {
-    const DisplayPieces = (): ReactElement[] => {
-        return props.pieces.map((piece, index) => {
-            return (
-                <Hexagon
-                    q={piece.position.q}
-                    r={piece.position.r}
-                    s={piece.position.s}
-                    key={index}
-                    fill={`${typeof piece}-${piece.color}`}
-                    className="piece"
-                    id={piece.color !== props.player.color ? "opponent" : "player"}
-                    data={piece}
-                    onClick={props.onPieceClicked}
-                />
-            );
-        });
+export const Pieces = (props: PieceBoardProps) => {
+    const DisplayPieces = (): ReactElement => {
+        return (
+            <>
+                {props.pieces.map((piece, index) => {
+                    return (
+                        <Hexagon
+                            q={piece.position.q}
+                            r={piece.position.r}
+                            s={piece.position.s}
+                            key={index}
+                            fill={`${(piece.constructor.name).toLowerCase()}-${piece.color}`}
+                            className="piece"
+                            id={piece.color !== props.player.color ? "opponent" : "player"}
+                            data={piece}
+                            onClick={props.onPieceClicked}
+                        />
+                    );
+                })}
+                ;
+            </>
+        );
     };
 
     return (
         <div
-            data-testid="figures"
             style={{
                 width: "100%",
                 height: "100%",
@@ -118,7 +125,7 @@ export function Pieces(props: PieceBoardProps) {
                 }}
             >
                 <Layout size={{ x: 5, y: 5 }} flat={true} spacing={1.05} origin={{ x: 0, y: 0 }} className="board">
-                    <>{DisplayPieces()}</>
+                    <DisplayPieces />
                     <Pattern
                         id="king-black"
                         link="https://upload.wikimedia.org/wikipedia/commons/f/f0/Chess_kdt45.svg"
@@ -183,4 +190,4 @@ export function Pieces(props: PieceBoardProps) {
             </HexGrid>
         </div>
     );
-}
+};

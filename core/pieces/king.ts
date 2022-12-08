@@ -1,11 +1,10 @@
 import { HexPosition, HexTile } from "../../interfaces/hexachess";
-import { filterBlockedTiles } from "../../utils/hexachess";
+import { PieceController } from "../piece-controller";
 import { Piece } from "./piece";
 
 export class King extends Piece {
     public get moves(): HexTile[] {
-        return filterBlockedTiles(
-            //TODO: This can be made inside a for loop
+        return PieceController.filterBlockedTiles(
             [
                 {
                     q: this.position.q + 1,
@@ -38,7 +37,6 @@ export class King extends Piece {
                     s: this.position.s,
                 },
             ],
-            [],
         );
     }
 }

@@ -12,7 +12,7 @@ export class Piece {
     }
 
     public set position(newPosition: HexPosition) {
-        if (newPosition.q - newPosition.r - newPosition.s !== 0) {
+        if (newPosition.q + newPosition.r + newPosition.s !== 0) {
             console.log("new position is not on the board");
             return;
         }
