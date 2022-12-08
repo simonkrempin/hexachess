@@ -1,9 +1,9 @@
-import { pieceTypes, HexPosition } from "../../interfaces/hexachess";
+import { HexPosition, HexTile } from "../../interfaces/hexachess";
 
 export class Piece {
     private _position: HexPosition;
 
-    constructor(public color: "white" | "black", public type: pieceTypes, startPosition: HexPosition ) {
+    constructor(public color: "white" | "black", startPosition: HexPosition ) {
         this._position = startPosition;
     }
 
@@ -20,7 +20,7 @@ export class Piece {
         this._position = newPosition;
     }
 
-    public get moves(): HexPosition[] {
+    public get moves(): HexTile[] {
         throw new Error("Method not implemented.");
     }
 }

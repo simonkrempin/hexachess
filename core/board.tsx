@@ -1,56 +1,40 @@
-'use client';
+"use client";
 
 import React, { ReactElement } from "react";
-import { HexGrid, Layout, Hexagon, Text, Pattern, Path, Hex } from "react-hexgrid";
+import { HexGrid, Layout, Hexagon, Pattern } from "react-hexgrid";
 import "../styles/board.css";
-import {
-    IBoardProps,
-    IFiguresBoardProps,
-    IHexaChessPiece,
-    HexPosition,
-    IHexaChessTile,
-    TileType,
-} from "../interfaces/hexachess";
+import { IBoardProps, PieceBoardProps, HexPosition, HexTile, TileType } from "../interfaces/hexachess";
 import { highlightTilesContains } from "../utils/hexachess";
+import { Piece } from "./pieces/piece";
 
 export const testId = "board";
 
 export const CreateHexagons = (props: {
     boardSize: number;
-    highlightTiles: IHexaChessTile[];
-    setSelectedPiece: (figure: IHexaChessPiece | null) => void;
-    selectedPiece: IHexaChessPiece | null;
-    pieces: IHexaChessPiece[];
+    highlightTiles: HexTile[];
+    setSelectedPiece: (piece: Piece | null) => void;
+    selectedPiece: Piece | null;
+    pieces: Piece[];
+    onTileClicked: (event: any, source: any) => void;
 }): ReactElement[] => {
-    // TODO: this function should probably be moved to the game engine
-    const onTileClick = (event: any, source: any) => {
-        if (source.props.className === "tile-possibleMove" && props.selectedPiece) {
-            props.selectedPiece.position = { q: source.props.q, r: source.props.r, s: source.props.s };
-        } else if (source.props.className === "tile-possibleAttack" && props.selectedPiece) {
-            // find the opponent piece and remove it from the board
-            const enemyPiece = props.pieces.find(
-                (piece) =>
-                    piece.position.q === source.props.q &&
-                    piece.position.r === source.props.r &&
-                    piece.position.s === source.props.s
-            );
-            if (enemyPiece) props.pieces.splice(props.pieces.indexOf(enemyPiece), 1);
-            props.selectedPiece.position = { q: source.props.q, r: source.props.r, s: source.props.s };
-        }
-        props.setSelectedPiece(null);
-    };
-
     let res: ReactElement[] = [];
 
     for (let q = -props.boardSize; q <= props.boardSize; q++) {
         for (let s = -props.boardSize; s <= props.boardSize; s++) {
             for (let r = -props.boardSize; r <= props.boardSize; r++) {
-                if (q + r + s === 0) {
-                    const tileMark = highlightTilesContains({ q, r, s }, props.highlightTiles);
-                    res.push(
-                        <Hexagon q={q} r={r} s={s} key={`${q}${r}${s}`} className={`tile-${tileMark}`} onClick={onTileClick} />
-                    );
-                }
+                if (q + r + s !== 0) continue;
+
+                const tileMark = highlightTilesContains({ q, r, s }, props.highlightTiles);
+                res.push(
+                    <Hexagon
+                        q={q}
+                        r={r}
+                        s={s}
+                        key={`${q}${r}${s}`}
+                        className={`tile-${tileMark}`}
+                        onClick={props.onTileClicked}
+                    />
+                );
             }
         }
     }
@@ -85,32 +69,28 @@ export function Board(props: IBoardProps) {
                         setSelectedPiece: props.setSelectedPiece,
                         selectedPiece: props.selectedPiece,
                         pieces: props.pieces,
+                        onTileClicked: props.onTileClicked,
                     })}
                 </Layout>
             </HexGrid>
         </div>
     );
-};
+}
 
-export function Pieces(props: IFiguresBoardProps) {
-    // TODO: This function should probably be moved to the game engine
-    const onFigureClick = (event: any, source: any) => {
-        props.onFigureClick(source.props.data);
-    };
-
-    const generatePiecePositions = (): ReactElement[] => {
-        return props.figures.map((figure, index) => {
+export function Pieces(props: PieceBoardProps) {
+    const DisplayPieces = (): ReactElement[] => {
+        return props.pieces.map((piece, index) => {
             return (
                 <Hexagon
-                    q={figure.position.q}
-                    r={figure.position.r}
-                    s={figure.position.s}
+                    q={piece.position.q}
+                    r={piece.position.r}
+                    s={piece.position.s}
                     key={index}
-                    fill={`${figure.type}-${figure.color}`}
+                    fill={`${typeof piece}-${piece.color}`}
                     className="piece"
-                    id={figure.color !== props.player.color ? "opponent" : "player"}
-                    data={figure}
-                    onClick={onFigureClick}
+                    id={piece.color !== props.player.color ? "opponent" : "player"}
+                    data={piece}
+                    onClick={props.onPieceClicked}
                 />
             );
         });
@@ -138,7 +118,7 @@ export function Pieces(props: IFiguresBoardProps) {
                 }}
             >
                 <Layout size={{ x: 5, y: 5 }} flat={true} spacing={1.05} origin={{ x: 0, y: 0 }} className="board">
-                    <>{generatePiecePositions()}</>
+                    <>{DisplayPieces()}</>
                     <Pattern
                         id="king-black"
                         link="https://upload.wikimedia.org/wikipedia/commons/f/f0/Chess_kdt45.svg"
@@ -203,4 +183,4 @@ export function Pieces(props: IFiguresBoardProps) {
             </HexGrid>
         </div>
     );
-};
+}
