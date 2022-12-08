@@ -132,8 +132,7 @@ export class PieceController {
             const piece = this.getPieceByPosition(tile);
     
             if (piece === undefined) filteredTiles.push({ position: { q: tile.q, r: tile.r, s: tile.s }, type: 'possibleMove' });
-    
-            if (piece?.color !== PlayerController.color) filteredTiles.push({ position: { q: tile.q, r: tile.r, s: tile.s }, type: 'possibleAttack' });
+            else if (piece?.color !== PlayerController.color) filteredTiles.push({ position: { q: tile.q, r: tile.r, s: tile.s }, type: 'possibleAttack' });
         }
     
         return filteredTiles;
