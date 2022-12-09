@@ -1,0 +1,31 @@
+.piece {
+    fill-opacity: 0.6;
+    pointer-events: auto;
+  }
+  #opponent {
+    pointer-events: none;
+  }
+  .tile-none {  
+    fill: #dea550;
+    fill-opacity: 0.6;
+  }
+  .tile-none:hover {
+    fill-opacity: 0.7;
+  }
+  .board {
+    pointer-events: none;
+  }
+  .tile-possibleMove {
+    fill: #d69a3f;
+    fill-opacity: 0.8;
+  }
+  .tile-possibleMove:hover {
+    fill-opacity: 1;
+  }
+  .tile-possibleAttack {
+    fill: #d65d3f;
+    fill-opacity: 0.8;
+  }
+  .tile-possibleAttack:hover {
+    fill-opacity: 1;
+  }
