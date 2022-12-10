@@ -6,9 +6,9 @@ const LoginPage = () => {
     return (
         <div>
             <form>
-                <div className="login">
+                <div className="login-window">
                     <h1>Login</h1>
-                    <p>Noch keinen Login? Hier registrieren</p>
+                    <p>Noch keinen Login? <a href="/register">Hier registrieren</a></p>
                     <input type="email" placeholder="E-Mail"/>
                     <input type="password" placeholder="Passwort"/>
                     <button>Anmelden</button>
