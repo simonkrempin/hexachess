@@ -1,0 +1,19 @@
+body {
+    background-color: #dadada;
+    display: grid;
+    place-items: center;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.login {
+    background-color: #837070;
+    width: 500px;
+    height: 600px;
+    margin: 10px;
+}
+
+.login * {
+    width: 90%;
+}

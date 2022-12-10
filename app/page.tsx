@@ -1,10 +1,54 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { GameEngine } from '../core/game-engine';
+import React, { ReactElement } from "react";
+import "./homepage.css";
 
-export default function HomePage() {
+const HomePage = () => {
     return (
-        <GameEngine/>
+        <div className="homepage">
+            <Sidebar />
+            <Selection />
+        </div>
     );
 }
+
+const Sidebar = (): ReactElement => {
+    return (
+        <div id="sidebar">
+            <Profile />
+            <FriendsList />
+        </div>
+    );
+};
+
+const Profile = () => {
+    return (
+        <div className="user-profile">
+            <h3>Username</h3>
+            <p>Ranking</p>
+        </div>
+    );
+};
+
+const FriendsList = () => {
+    return (
+        <div className="friends-list">
+            <div className="divider">
+                <h3>Freunde</h3>
+            </div>
+        </div>
+    );
+};
+
+const Selection = () => {
+    return (
+        <div className="selection">
+            <a href="/play">Play</a>
+            <a href="/rules">Rules</a>
+            <a href="/scoreboard">Scoreboard</a>
+            <a href="/about">About</a>
+        </div>
+    );
+};
+
+export default HomePage;
