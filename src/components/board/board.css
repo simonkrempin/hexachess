@@ -1,0 +1,11 @@
+.game-board {
+    overflow-y: hidden;
+}
+
+.hexagon {
+    fill: #e0e0e0;
+}
+
+.hexagon-group {
+    box-shadow: 13px 13px 25px #cacaca, -13px -13px 25px #f6f6f6;
+}

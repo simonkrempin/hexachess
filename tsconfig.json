@@ -20,8 +20,13 @@
       }
     ],
     "paths": {
-      "@interface/*": ["./src/interface/*"],
-      "@/*": ["./src/*"]
+      "@interfaces/*": ["./src/interfaces/*"],
+      "@components": ["./src/components/index"],
+      "@core/*": ["./src/core/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@contexts/*": ["./src/contexts/*"],
+      "@services/*": ["./src/services/*"],
+      "@src/*": ["./src/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
