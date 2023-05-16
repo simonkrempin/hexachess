@@ -46,11 +46,11 @@ p {
 }
 
 h1 {
-  color: #eeeeee;
+  color: var(--gold-primary);
 }
 
 h2 {
-  color: #eeeeee;
+  color: #dfdfdf;
 }
 
 div {
