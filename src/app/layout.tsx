@@ -1,21 +1,22 @@
-import './globals.css'
-import { Inter } from 'next/font/google'
+"use client";
 
-const inter = Inter({ subsets: ['latin'] })
+import { GameContextProvider } from "@contexts/GameContext";
+import "./globals.css";
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: 'hexachess.online',
-  description: 'Play Hexachess online with your friends!',
-}
+    title: "hexachess.online",
+    description: "Play Hexachess online with your friends!",
+};
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
-  )
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+    return (
+        <html lang="en">
+            <body className={inter.className}>
+                <GameContextProvider>{children}</GameContextProvider>
+            </body>
+        </html>
+    );
 }
