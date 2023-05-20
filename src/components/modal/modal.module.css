@@ -1,0 +1,13 @@
+.modal {
+    width: 300px;
+    height: 100px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #252525;
+    border-radius: 8px;
+    margin: 8px;
+}

@@ -1,6 +1,7 @@
 :root {
   --gold-secondary: #EBD197;
   --gold-primary: #D2BF37;
+  --background: #212121;
 }
 
 html,
@@ -8,7 +9,7 @@ body {
   padding: 0;
   margin: 0;
   overflow: hidden;
-  background-color: #212121;
+  background-color: var(--background);
 }
 
 .centered {
